@@ -1,0 +1,1 @@
+mailbomb	warez	snmpgetattack	portsweep	nmap

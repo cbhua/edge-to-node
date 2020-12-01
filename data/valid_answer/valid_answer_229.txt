@@ -1,0 +1,1 @@
+snmpguess	nmap	smurf

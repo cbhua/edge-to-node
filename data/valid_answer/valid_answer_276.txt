@@ -1,0 +1,1 @@
+ignore	warez	snmpgetattack	portsweep	dict	nmap
