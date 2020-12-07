@@ -1,14 +1,13 @@
 # E2N: an edge classificaton model
-**E2N**, which is Edges to Nodes, is a strategy for edge classification. 
+**E2N** - Edges to Nodes, a strategy for edge classification. 
+
+
 
 ## Introduction
 
-TODO:
+There are more and more vertex classification models with excellent performances. However, in the meanwhile, little effort has been taken on the problem of edge classification. The problem of edge classification is generally harder than that of vertex classification. This is because vertex classification methods are primarily based on the notion of homophily, while it is generally much more diffcult to apply such homophily principle to edges. 
 
-- [x] There are many node classification methods, but not too many edge classification ones;
-- [x] Intro to some edge to vertige methods
-
-With the development of node embedding, there are more and more models with excellent performances. However, in the meanwhile, little effort has been taken on the problem of edge classification. The problem of edge classification is generally harder than that of vertex classification. This is because vertex classification methods are primarily based on the notion of homophily [E davidand], while it is generally much more diffcult to apply such homophily principle to edges. Some methods based on behavior relation interplay (BIR) has been used in social network link prediction, [35 36 39]such as friends network and trust network. There methods are mostly unsupervised and rely on features on exact domain in graph. [41] also used domain features to infer edge types with supervised models. These domain-feature-baed methods require particular networks and network relationships, so can not handle more general networks' edge classification problem. 
+Some methods based on behavior relation interplay (BIR) has been used in social network link prediction, such as friends network and trust network. There methods are mostly unsupervised and rely on features on exact domain in graph, also used domain features to infer edge types with supervised models. These domain-feature-baed methods require particular networks and network relationships, so can not handle more general networks' edge classification problem. 
 
 Since there are many excellent models for nodes classification, which can handle more general problems, also the constrains for edge classification methods so far. We considered the method about transferring edges to nodes in graph, and then apply such node classification methods on transfered graph. 
 
