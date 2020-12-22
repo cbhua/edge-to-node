@@ -1,7 +1,7 @@
 # E2N: An Edge Classificaton Model
 **E2N** - Edges to Nodes, a strategy for edge classification. 
 
-![Main page](imgs/Graph Mining Final Presentation.001.jpeg)
+![Main page](imgs/1.jpeg)
 
 ## Background
 
@@ -9,7 +9,7 @@ There are more and more vertex classification models with excellent performances
 
 Some methods based on behavior relation interplay (BIR) has been used in social network link prediction, such as friends network and trust network. There methods are mostly unsupervised and rely on features on exact domain in graph, also used domain features to infer edge types with supervised models. These domain-feature-baed methods require particular networks and network relationships, so can not handle more general networks' edge classification problems. 
 
-![Background](imgs/Graph Mining Final Presentation.004.jpeg)
+![Background](imgs/4.jpeg)
 
 Since there are many excellent models for nodes classification which can handle more general problems, we considered the method about transferring edges to nodes in graph, and then apply such node classification methods on transfered graph to make edge classification. 
 
@@ -17,33 +17,33 @@ Gao et al. proposed an expectation maximization approach on edge-type trainsitio
 
 However, the methods here emphasis more on ragion features, not for exact edge classification, which not match what we need for TCP attack connection detecting. Inspire by this, we tried to create a new edge to node strategy, E2N, to handle this problem. 
 
-![Edge to Node method](imgs/Graph Mining Final Presentation.005.jpeg)
+![Edge to Node method](imgs/5.jpeg)
 
 ## Algorithm
 
 We create two strategies to convert edges to nodes. To do so, we firstly directly set edges in original graph $e_{ori}^i$ to transformed nodes $v_{trans}^i$ with several features, which will be shown later. Then connect transformed nodes $v_{trans}^i$ by two methods. Firstly, we create directed edges $e_{trans}^{(i, j)}$ from transformed node $v_{trans}^i$ to transformed node $v_{trans}^j$, if the destination node of the original edge for $v_{trans}^i$  is the same with the source noe of the original edge for $v_{trans}^j$. Secondly, for those edges in orignal graph with the same source node, we make them fully connected in transformed graph.  By this way we get a converted graph where nodes in it are edges in original graph. Then we will assign features to this new graph. 
 
-![Two methods for transferring](imgs/Graph Mining Final Presentation.006.jpeg)
+![Two methods for transferring](imgs/6.jpeg)
 
 For example, we can transfer the left graph to the right part by this method. 
 
-![Example](imgs/Graph Mining Final Presentation.007.jpeg)
+![Example](imgs/7.jpeg)
 
 During this process, we can see that edge `3` and edge `5` are transferred to edge `3->5` in new graph based on the first transfer rule. 
 
-![Example](imgs/Graph Mining Final Presentation.008.jpeg)
+![Example](imgs/8.jpeg)
 
 And all out edges for node `a`, i.e. edge `1, 2, 3` will become fully connected in the transferred graph, i.e. nodes `1, 2, 3` based on the second transfer rule. 
 
-![Example](imgs/Graph Mining Final Presentation.009.jpeg)
+![Example](imgs/9.jpeg)
 
 We completed the creation of transformed graph so far and going to apply some node classification methods on this graph. We applied multi layers graph convolutional network (GCN) to process the graph. In which model, graph convolutional layers are responsible for exacting high-level node representations, graph pooling layers play the role of downsampling. Based on the strategy of transforming graph, we know that for those edges from one node will be transformed to a community, and using GCN can easily detect them in graph, which match our conceptions about nodes type in graph. 
 
-![Applied Model: GCN](imgs/Graph Mining Final Presentation.013.jpeg)
+![Applied Model: GCN](imgs/13.jpeg)
 
 Beside the GCN layers we applied, we also applied graph attention network (GAT) on the graph. The point of using GAT is to emphasis the connection chain within the graph. This model will give more importance on connection routes. 
 
-![Applied Model: GAT](imgs/Graph Mining Final Presentation.015.jpeg)
+![Applied Model: GAT](imgs/15.jpeg)
 
 ## Experiment
 
@@ -74,7 +74,7 @@ All datasets consist of TCP connection histories for 30 minutes. Detailed inform
 
 Features we chose for transformed nodes are source node's in-degree, source node's out-degree, destinate node's in-degree, destinate node's out-degree, port used number, averate connection time and connection times. The explaination for those features are as following. 
 
-![Features](imgs/Graph Mining Final Presentation.010.jpeg)
+![Features](imgs/10.jpeg)
 
 **Source node's in-degree and out-degree**: we have one conception that there are some attackers in the network. Such attackers have the features that they have many out connections while fewer in connections, so if we detect an edge with it's source node having high out-degrees, it is reasonable for us to suspect that this node may be an attacker, and give a higer weight for edges from it to be anormaly connections.
 
@@ -86,11 +86,11 @@ Features we chose for transformed nodes are source node's in-degree, source node
 
 **Connection times**: one edge in original graph will be actived several times, we record this number as a feature. 
 
-![Features Analysis](imgs/Graph Mining Final Presentation.012.jpeg)
+![Features Analysis](imgs/12.jpeg)
 
 We create our graph transformer functions to generate edge to node graph from original graph. And then applied DGL packages to analysis and train the model. For GCN model, we set the number of hidden layer to 16. During the experiment, we got to know that by this way the model will give much more weight to exact attack types. To deal with this problem, we added another balance weigh matrix to model to control the unbalance of trinning. 
 
-![Experiment Results](imgs/Graph Mining Final Presentation.014.jpeg)
+![Experiment Results](imgs/14.jpeg)
 
 The unbalance of dataset has much influence on the trainning, since in GCN model, it would be easy to ignore some attack connections within many in-connections or out-connections. We also applied average strategy during assigning features, which will also lost some informations about exact attack connections. 
 
