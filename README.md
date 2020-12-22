@@ -21,7 +21,7 @@ However, the methods here emphasis more on ragion features, not for exact edge c
 
 ## Algorithm
 
-We create two strategies to convert edges to nodes. To do so, we firstly directly set edges in original graph $e_{ori}^i$ to transformed nodes $v_{trans}^i$ with several features, which will be shown later. Then connect transformed nodes $v_{trans}^i$ by two methods. Firstly, we create directed edges $e_{trans}^{(i, j)}$ from transformed node $v_{trans}^i$ to transformed node $v_{trans}^j$, if the destination node of the original edge for $v_{trans}^i$  is the same with the source noe of the original edge for $v_{trans}^j$. Secondly, for those edges in orignal graph with the same source node, we make them fully connected in transformed graph.  By this way we get a converted graph where nodes in it are edges in original graph. Then we will assign features to this new graph. 
+We create two strategies to convert edges to nodes. To do so, we firstly directly set edges in original graph `e_{ori}^i`to transformed nodes `v_{trans}^i`with several features, which will be shown later. Then connect transformed nodes `v_{trans}^i` by two methods. Firstly, we create directed edges ​`e_{trans}^{(i, j)}​` from transformed node `v_{trans}^i​` to transformed node `v_{trans}^j​`, if the destination node of the original edge for `v_{trans}^i​`  is the same with the source noe of the original edge for `v_{trans}^j​`. Secondly, for those edges in orignal graph with the same source node, we make them fully connected in transformed graph.  By this way we get a converted graph where nodes in it are edges in original graph. Then we will assign features to this new graph. 
 
 ![Two methods for transferring](imgs/6.jpeg)
 
@@ -60,14 +60,23 @@ The dataset we used is about TCP connection attack prediction, which contains TC
 All datasets consist of TCP connection histories for 30 minutes. Detailed information about hte datasets is given below:
 
 1. **Trainning Dataset** (`train_xxx.txt`)
+   
    In the training dataset, all information about the TCP connection is included in each line of the file. More specifically, each line provides the source id, destination id, port, timestamp, and the type of connection, which are separated by a tab as follows:
+   
    `<SOURCE IP>\t<DESTINATION IP>\t<PORT>\t<TIMESTAMP>\t<CONNECTION TYPE>`
-2. Validation Dataset (`valid_query_xxx.txt`, `valid_answer_xxx.txt`)
+   
+2. **Validation Dataset** (`valid_query_xxx.txt`, `valid_answer_xxx.txt`)
+
    Validation datasets consist of query and answer files. In query files, each line of the file is in the following format:
+
    `<SOURCE IP>\t<DESTINATION IP>\t<PORT>\t<TIMESTAMP>`
+
    In answer files , each file contains the tab-delimited list of attack types that the corresponding validation query dataset has. If the corresponding dataset does not contain any TCP connections corresponding to attacks, then the answer file will be empty.
-3. Test Dataset (`test_query_xxx.txt`)
+
+3. **Test Dataset** (`test_query_xxx.txt`)
+
    Test datasets only contain query files. Each line of the file is in the following format:
+
    `<SOURCE IP>\t<DESTINATION IP>\t<PORT>\t<TIMESTAMP>`
 
 ### Features
